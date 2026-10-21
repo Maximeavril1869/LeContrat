@@ -1,0 +1,17 @@
+{
+  "name": "Le Contrat",
+  "short_name": "Le Contrat",
+  "description": "Jeu de plis aux 22 atouts du Tarot : annonce ton contrat et tiens-le. En local, contre l'ordinateur ou à plusieurs.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d2230",
+  "theme_color": "#0d2230",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

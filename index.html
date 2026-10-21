@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0d2230">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Le Contrat">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<title>Le Contrat</title>
+<style>
+:root{
+  --felt1:#17485f; --felt2:#0d2230; --gold:#e7c15a; --gold2:#b8902f; --cream:#fbf6e9; --ink:#1b1b1b;
+  --muted:#a9c2d0; --danger:#e5694f; --good:#7fe3a6; --cw:46px; --ch:66px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{margin:0;height:100%;background:var(--felt2);color:var(--cream);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overscroll-behavior:none}
+body{background:radial-gradient(120% 80% at 50% 0%,var(--felt1),var(--felt2) 70%) fixed;}
+button{font:inherit;color:inherit}
+.serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+#app{height:100dvh;display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+[hidden]{display:none!important}
+
+/* ---------- Accueil ---------- */
+#home{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px;gap:16px;text-align:center;overflow-y:auto}
+#home>:first-child{margin-top:auto}#home>:last-child{margin-bottom:auto}
+.crown{font-size:64px;line-height:1;color:var(--gold);text-shadow:0 4px 18px rgba(231,193,90,.35);letter-spacing:.04em}
+#home h1{margin:0;font-size:44px;letter-spacing:.02em;color:var(--cream)}
+#home p.sub{margin:0;color:var(--muted);max-width:32ch;line-height:1.4}
+.panel{background:rgba(0,0,0,.22);border:1px solid rgba(231,193,90,.25);border-radius:16px;padding:14px 16px;width:100%;max-width:340px;flex:none}
+.panel h3{margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;padding:11px 0;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:transparent;font-weight:600}
+.seg button.on{background:var(--gold);color:#2b2100;border-color:var(--gold)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.switch{width:50px;height:30px;border-radius:15px;background:rgba(255,255,255,.2);border:0;position:relative;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.18s}
+.switch.on{background:var(--gold)}
+.switch.on::after{left:23px}
+.btn{border:0;border-radius:14px;padding:15px 22px;font-weight:700;font-size:17px;width:100%;max-width:340px;flex:none}
+.btn.gold{background:linear-gradient(180deg,#f1d27a,var(--gold2));color:#2b2100;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:15px;padding:6px;flex:none}
+.modes{display:flex;flex-direction:column;gap:8px}
+.modes button{text-align:left;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:transparent;line-height:1.3}
+.modes button small{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
+.modes button.on{background:rgba(231,193,90,.16);border-color:var(--gold)}
+.panel input{width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.25);color:var(--cream);font:inherit;font-size:16px;margin-top:8px}
+.panel input:first-of-type{margin-top:0}
+
+/* ---------- Jeu ---------- */
+#game{flex:1;display:flex;flex-direction:column;min-height:0}
+.topbar{display:flex;align-items:center;gap:8px;padding:8px 12px}
+.topbar .round{flex:1;line-height:1.15}
+.topbar .round b{font-size:17px}
+.topbar .round small{display:block;color:var(--muted);font-size:12px}
+.iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);font-size:18px;flex:none}
+.opps{display:flex;gap:8px;padding:2px 12px 6px;overflow-x:auto}
+.opp{flex:1;min-width:92px;background:rgba(0,0,0,.25);border:1.5px solid transparent;border-radius:14px;padding:8px 10px;transition:.2s}
+.opp.turn{border-color:var(--gold);box-shadow:0 0 0 3px rgba(231,193,90,.18)}
+.opp .nm{font-weight:700;font-size:14px;display:flex;justify-content:space-between;gap:6px}
+.opp .sc{color:var(--muted);font-size:12px;margin-top:2px}
+.opp .bt{font-size:12.5px;margin-top:3px;color:var(--cream)}
+.opp .bt b{color:var(--gold)}
+.opp .fan{display:flex;margin-top:6px;height:22px}
+.opp .fan i{width:15px;height:22px;border-radius:3px;background:repeating-linear-gradient(45deg,#1d3f66 0 3px,#27527f 3px 6px);border:1px solid #e9d8a6;margin-left:-8px;flex:none}
+.opp .fan i:first-child{margin-left:0}
+.tag{font-size:11px;background:var(--gold);color:#2b2100;border-radius:6px;padding:1px 6px;font-weight:800}
+.trickzone{display:flex;justify-content:center;align-items:flex-start;gap:10px;flex-wrap:wrap;min-height:112px;padding:8px 10px 2px;--cw:50px;--ch:72px}
+.tk{text-align:center;max-width:70px}
+.tk .who{display:block;margin-top:5px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk.win .card{box-shadow:0 0 0 3px var(--gold),0 8px 16px rgba(0,0,0,.5)}
+.tk.win .who{color:var(--gold);font-weight:700}
+.trickempty{align-self:center;color:var(--muted);font-size:13px;border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:22px 18px}
+.msg{min-height:38px;padding:2px 18px;text-align:center;font-size:14px;color:var(--cream);display:flex;align-items:center;justify-content:center}
+.msg.alert{color:var(--gold);font-weight:700}
+.betbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:4px 12px 2px}
+.bb{min-width:46px;padding:11px 0;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);font-weight:800;font-size:17px;position:relative}
+.bb.on{background:var(--gold);color:#2b2100;border-color:var(--gold)}
+.bb.sug:not(.on)::after{content:"";position:absolute;left:50%;bottom:-6px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.bb[disabled]{opacity:.35;text-decoration:line-through}
+
+/* ---------- Cartes (atouts du Tarot) ---------- */
+.card{position:relative;width:var(--cw);height:var(--ch);border-radius:7px;background:linear-gradient(160deg,#fffaf0,#f3e8cb);color:#3b3226;
+  box-shadow:0 3px 8px rgba(0,0,0,.4);border:1px solid #cdbf93;display:inline-block;flex:none;user-select:none;-webkit-user-select:none;
+  transition:transform .14s, box-shadow .14s}
+.card::before{content:"";position:absolute;inset:3px;border:1px solid rgba(160,120,40,.4);border-radius:4px;pointer-events:none}
+.card .tl{position:absolute;top:5px;left:6px;line-height:1;font:700 11px/1 Georgia,"Times New Roman",serif;letter-spacing:.02em}
+.card .tl.br{top:auto;left:auto;bottom:5px;right:6px;transform:rotate(180deg)}
+.card .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 24px/1 Georgia,"Times New Roman",serif}
+.card.t1{color:#5a4524}.card.t2{color:#1e4f8f}.card.t3{color:#a3262f}
+.card.exc{background:linear-gradient(160deg,#fff4cf,#f0cf72);color:#6b4a00;border-color:var(--gold2)}
+.card.exc .tl{font-size:8px;letter-spacing:.03em}
+.card.exc .num{font-size:30px}
+.card.sel{transform:translateY(-12px);box-shadow:0 0 0 3px var(--gold),0 10px 18px rgba(0,0,0,.5);z-index:3}
+.card.sug::after{content:"";position:absolute;left:50%;bottom:-8px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.cardback{width:var(--cw);height:var(--ch);border-radius:7px;border:2px solid #f1e3b4;flex:none;
+  background:repeating-linear-gradient(45deg,#1d3f66 0 5px,#2a5686 5px 10px);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+
+/* ---------- Main du joueur ---------- */
+.handwrap{flex:1;min-height:0;overflow-y:auto;padding:10px 10px 14px;display:flex;flex-direction:column;justify-content:flex-end}
+.handinfo{text-align:center;font-size:13px;color:var(--muted);margin-bottom:8px;min-height:18px}
+.handinfo b{color:var(--gold)}
+.hand{display:flex;flex-wrap:wrap;gap:12px 8px;justify-content:center;align-items:flex-end;padding-top:14px}
+.actions{padding:8px 14px 12px}
+.actions .btn{max-width:none}
+@media (min-height:760px){#hand{--cw:54px;--ch:78px}#hand .card .num{font-size:28px}#hand .card .tl{font-size:12px}}
+
+/* ---------- Modales ---------- */
+dialog{border:0;border-radius:20px;padding:0;background:#10303f;color:var(--cream);width:min(92vw,420px);max-height:86dvh;box-shadow:0 20px 60px #000a}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.dlg{padding:18px;display:flex;flex-direction:column;gap:12px;max-height:86dvh;overflow-y:auto}
+.dlg h2{margin:0;font-size:22px}
+.dlg h4{margin:6px 0 2px;color:var(--gold);font-size:14px}
+.dlg p,.dlg li{margin:0;line-height:1.45;font-size:14.5px;color:#e4eef3}
+.dlg ul{margin:4px 0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+table.sc{width:100%;border-collapse:collapse;font-size:14px}
+table.sc th,table.sc td{padding:6px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.12)}
+table.sc th{color:var(--gold);font-weight:700;font-size:13px}
+table.sc td:first-child,table.sc th:first-child{text-align:left;color:var(--muted)}
+table.sc tr.tot td{font-weight:800;font-size:16px;border-top:2px solid var(--gold)}
+table.sc.many{font-size:12px}table.sc.many th{font-size:11px}table.sc.many th,table.sc.many td{padding:6px 2px}
+.ok{color:var(--good)}.bad{color:var(--danger)}.best{color:var(--gold)}
+.note{font-size:12.5px!important;color:var(--muted)!important}
+.rank{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.2)}
+.rank .pos{font-size:22px;width:30px;text-align:center}
+.rank .n{flex:1;font-weight:700}
+.rank.win{background:rgba(231,193,90,.18);border:1px solid var(--gold)}
+.exbtns{display:flex;flex-direction:column;gap:10px}
+.exbtns .btn{max-width:none;text-align:left}
+.exbtns .btn small{display:block;font-weight:500;font-size:13px;opacity:.8;margin-top:2px}
+
+/* ---------- Voile « passe l'appareil » ---------- */
+#veil{position:fixed;inset:0;z-index:50;background:radial-gradient(120% 80% at 50% 0%,var(--felt1),var(--felt2) 70%);display:flex;align-items:center;justify-content:center;padding:24px}
+.veilbox{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;max-width:340px;width:100%}
+.veilbox h2{margin:0;font-size:30px}.veilbox p{margin:0;line-height:1.4}
+
+/* ---------- Face à face (iPad à plat) ---------- */
+#duo{height:100dvh;display:grid;grid-template-rows:1fr auto 1fr;min-height:0}
+#duo .seat{display:flex;flex-direction:column;min-height:0;padding:8px 14px;border:2px solid transparent;border-radius:18px;margin:4px;transition:.2s;--cw:44px;--ch:64px}
+#duo .seat.turn{border-color:var(--gold);background:rgba(231,193,90,.06);box-shadow:0 0 0 4px rgba(231,193,90,.12)}
+#duo .seat.top{transform:rotate(180deg)}
+.seathead{display:flex;align-items:center;gap:10px}
+.seathead .who{flex:1;line-height:1.15}.seathead .who b{font-size:19px;display:block}
+.seathead .who span{color:var(--muted);font-size:13px}.seathead .who em{color:var(--gold);font-style:normal;font-weight:800}
+.seathead .rd{color:var(--muted);font-size:12.5px;white-space:nowrap}
+#duo .handwrap{padding:4px 0}
+#duo .hand{padding-top:12px}
+.seatbtns{display:flex;gap:8px}
+.seatbtns .btn{padding:13px 12px;font-size:16px;max-width:none}
+.seatbtns .js-reveal{flex:0 0 38%}.seatbtns .js-action{flex:1}
+.midstrip{display:flex;align-items:center;justify-content:center;gap:28px;padding:6px 0;min-height:104px;--cw:50px;--ch:72px}
+.midstrip .tk .who{font-size:11px}
+.card.dual .num{inset:auto;left:0;right:0;top:50%;margin-top:-13px;display:block;text-align:center}
+.card.dual.exc .num{margin-top:-15px}
+#duoRound{position:fixed;inset:0;z-index:60;background:rgba(5,18,26,.98);display:grid;grid-template-rows:1fr 1fr}
+#duoRound .half{min-height:0;overflow-y:auto;display:flex;justify-content:center;align-items:flex-start;padding:10px}
+#duoRound .half.top{transform:rotate(180deg)}
+#duoRound .dlg{width:min(94vw,520px);max-height:none}
+@media (min-width:700px){
+  #duo .seat{--cw:72px;--ch:104px}
+  #duo .seat .card .tl{font-size:16px}#duo .seat .card .num{font-size:36px}
+  .midstrip{--cw:68px;--ch:98px;gap:48px}
+  .midstrip .card .num{font-size:32px}
+  .seathead .who b{font-size:24px}
+  .seatbtns .btn{font-size:18px}
+  .bb{min-width:56px;font-size:19px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== Accueil ===== -->
+  <section id="home">
+    <div class="crown serif">XXI</div>
+    <h1 class="serif">Le Contrat</h1>
+    <p class="sub">Les 22 atouts du Tarot. Annonce le nombre de plis que tu vas faire, puis tiens ton contrat. Le moins de points gagne.</p>
+    <div class="panel">
+      <h3>Mode de jeu</h3>
+      <div class="modes" id="segMode">
+        <button data-m="solo" class="on"><b>Contre l'ordinateur</b><small>1 à 4 adversaires (jusqu'à 5 joueurs)</small></button>
+        <button data-m="passe"><b>On se passe l'appareil</b><small>2 à 5 joueurs, un écran masque la main entre les tours</small></button>
+        <button data-m="duo"><b>À deux, face à face</b><small>iPad posé à plat, chacun de son côté</small></button>
+      </div>
+    </div>
+    <div class="panel" id="optSolo">
+      <h3>Adversaires</h3>
+      <div class="seg" id="segOpp">
+        <button data-n="1">1</button><button data-n="2" class="on">2</button><button data-n="3">3</button><button data-n="4">4</button>
+      </div>
+    </div>
+    <div class="panel" id="optPasse" hidden>
+      <h3>Joueurs</h3>
+      <div class="seg" id="segPlayers">
+        <button data-n="2">2</button><button data-n="3" class="on">3</button><button data-n="4">4</button><button data-n="5">5</button>
+      </div>
+    </div>
+    <div class="panel" id="optNames" hidden>
+      <h3>Noms</h3>
+      <input id="n1" maxlength="14" autocomplete="off" aria-label="Nom du joueur 1">
+      <input id="n2" maxlength="14" autocomplete="off" aria-label="Nom du joueur 2">
+      <input id="n3" maxlength="14" autocomplete="off" aria-label="Nom du joueur 3">
+      <input id="n4" maxlength="14" autocomplete="off" aria-label="Nom du joueur 4">
+      <input id="n5" maxlength="14" autocomplete="off" aria-label="Nom du joueur 5">
+    </div>
+    <div class="panel">
+      <div class="row">
+        <div style="text-align:left"><b>Conseils</b><div style="color:var(--muted);font-size:12.5px;margin-top:2px">Pari conseillé et carte conseillée (point doré)</div></div>
+        <button class="switch on" id="swAide" aria-label="Conseils"></button>
+      </div>
+    </div>
+    <button class="btn gold" id="btnNew">Nouvelle partie</button>
+    <button class="btn ghost" id="btnResume" hidden>Reprendre la partie</button>
+    <button class="linkbtn" id="btnRules">Règles du jeu</button>
+  </section>
+
+  <!-- ===== Partie (ordinateur / on se passe l'appareil) ===== -->
+  <section id="game" hidden>
+    <div class="topbar">
+      <div class="round"><b class="serif" id="roundTitle"></b><small id="roundSub"></small></div>
+      <button class="iconbtn" id="btnScores" aria-label="Scores">☰</button>
+      <button class="iconbtn" id="btnMenu" aria-label="Menu">⋯</button>
+    </div>
+    <div class="opps" id="opps"></div>
+    <div class="trickzone" id="trick"></div>
+    <div class="msg" id="msg"></div>
+    <div class="betbar" id="betbar" hidden></div>
+    <div class="handwrap">
+      <div class="handinfo" id="handInfo"></div>
+      <div class="hand" id="hand"></div>
+    </div>
+    <div class="actions"><button class="btn gold" id="btnAction" disabled>…</button></div>
+  </section>
+
+  <!-- ===== Face à face (iPad) ===== -->
+  <section id="duo" hidden>
+    <div class="seat top" id="seat1">
+      <div class="seathead"></div>
+      <div class="msg"></div>
+      <div class="betbar" hidden></div>
+      <div class="handwrap"><div class="handinfo"></div><div class="hand"></div></div>
+      <div class="seatbtns"><button class="btn ghost js-reveal"></button><button class="btn gold js-action" disabled>…</button></div>
+    </div>
+    <div class="midstrip">
+      <div class="trickzone" id="duoTrick" style="min-height:0;padding:0"></div>
+      <button class="iconbtn" id="btnMenuDuo" aria-label="Menu">⋯</button>
+    </div>
+    <div class="seat bottom" id="seat0">
+      <div class="seathead"></div>
+      <div class="msg"></div>
+      <div class="betbar" hidden></div>
+      <div class="handwrap"><div class="handinfo"></div><div class="hand"></div></div>
+      <div class="seatbtns"><button class="btn ghost js-reveal"></button><button class="btn gold js-action" disabled>…</button></div>
+    </div>
+  </section>
+</div>
+
+<div id="veil" hidden>
+  <div class="veilbox">
+    <div class="crown serif" style="font-size:44px">XXI</div>
+    <h2 class="serif" id="veilTitle"></h2>
+    <p id="veilLast"></p>
+    <p style="color:var(--muted)">Passe l'appareil, puis touche le bouton.</p>
+    <button class="btn gold" id="btnVeil"></button>
+  </div>
+</div>
+
+<div id="duoRound" hidden>
+  <div class="half top"><div class="dlg" id="rpTop"></div></div>
+  <div class="half"><div class="dlg" id="rpBottom"></div></div>
+</div>
+
+<!-- ===== Modales ===== -->
+<dialog id="dlgRules"><div class="dlg">
+  <h2 class="serif">Règles</h2>
+  <h4>But</h4><p>Faire exactement le nombre de plis que tu as annoncé, donne après donne. Le moins de points à la fin gagne.</p>
+  <h4>Cartes</h4><p>22 cartes : les 21 atouts du Tarot (I à XXI) et l'Excuse. Plus le chiffre est grand, plus la carte est forte.</p>
+  <h4>Donnes</h4>
+  <ul><li>On distribue 1 carte chacun à la première donne, 2 à la deuxième, 3 à la troisième… jusqu'au maximum possible, puis on redescend.</li>
+  <li>2 joueurs : jusqu'à 11 cartes (21 donnes). 3 joueurs : 7 cartes (13 donnes). 4 joueurs : 5 cartes (9 donnes). 5 joueurs : 4 cartes (7 donnes). Les cartes en trop sont écartées.</li>
+  <li>Le donneur change à chaque donne. Le premier servi (à gauche du donneur) annonce en premier et entame le premier pli.</li></ul>
+  <h4>Les paris</h4>
+  <p>Chacun annonce, à son tour, le nombre de plis qu'il pense faire. Le dernier à parler (le donneur) ne peut pas annoncer un chiffre qui porterait le total des paris au nombre de plis en jeu : la somme des paris est toujours différente du nombre de plis.</p>
+  <p class="note">Exemple : à 2 joueurs avec 3 cartes, si le premier annonce 2, le donneur ne peut pas annoncer 1.</p>
+  <h4>Les plis</h4>
+  <ul><li>Chacun joue une carte à son tour. La monte n'est pas obligatoire : tu joues la carte que tu veux.</li>
+  <li>La plus forte carte remporte le pli et entame le suivant.</li>
+  <li><b>L'Excuse</b> vaut 0 ou 22, au choix de son possesseur au moment où il la joue : elle sert à perdre un pli à coup sûr ou à en gagner un à coup sûr.</li></ul>
+  <h4>La marque</h4>
+  <ul><li>Contrat réalisé (nombre exact de plis) : 0 point.</li>
+  <li>Chaque pli d'écart, en plus ou en moins, coûte 1 point (2 plis de plus ou de moins : 2 points).</li>
+  <li>Si le contrat n'est pas réalisé alors que tu avais l'Excuse en main, la pénalité est doublée.</li>
+  <li>Quand l'Excuse t'a été servie pour la 3<sup>e</sup> fois, tu inscris 1 point de pénalité (puis le compte repart de zéro).</li></ul>
+  <button class="btn gold" data-close>Compris</button>
+</div></dialog>
+
+<dialog id="dlgScores"><div class="dlg">
+  <h2 class="serif">Scores</h2>
+  <div id="scoresBody"></div>
+  <button class="btn gold" data-close>Fermer</button>
+</div></dialog>
+
+<dialog id="dlgRound"><div class="dlg" id="roundBody"></div></dialog>
+
+<dialog id="dlgExcuse"><div class="dlg">
+  <h2 class="serif">L'Excuse vaut…</h2>
+  <div class="exbtns">
+    <button class="btn gold" data-ex="22">22<small>Elle bat toutes les cartes : tu gagnes le pli.</small></button>
+    <button class="btn ghost" data-ex="0">0<small>Elle perd contre toutes les cartes : tu perds le pli.</small></button>
+  </div>
+  <button class="linkbtn" data-close>Annuler</button>
+</div></dialog>
+
+<dialog id="dlgMenu"><div class="dlg">
+  <h2 class="serif">Menu</h2>
+  <div class="row"><b>Conseils</b><button class="switch" id="swAide2" aria-label="Conseils"></button></div>
+  <button class="btn ghost" id="btnMenuRules">Règles</button>
+  <button class="btn ghost" id="btnQuit">Quitter vers l'accueil</button>
+  <button class="btn gold" data-close>Retour à la partie</button>
+</div></dialog>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
