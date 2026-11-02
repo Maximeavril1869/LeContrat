@@ -14,3 +14,8 @@ Trois modes : contre l'ordinateur (1 à 4 adversaires), à plusieurs en se passa
 ## Fichiers
 
 `engine.js` (règles, marque, IA), `app.js` (interface), `index.html`, `sw.js` et `manifest.webmanifest` (PWA hors ligne), `icons/`.
+
+
+## Licence
+
+Tous droits réservés © Maximeavril1869. Code publié pour consultation uniquement ; toute réutilisation exige l'autorisation écrite de l'auteur. Voir le fichier `LICENSE`.
