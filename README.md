@@ -2,7 +2,7 @@
 
 Jeu de plis aux 22 atouts du Tarot (I à XXI et l'Excuse), de 2 à 5 joueurs, sur le principe du Whist-ascenseur. À chaque donne, on annonce le nombre exact de plis qu'on va faire ; le moins de points gagne. Fonctionne en local et hors ligne.
 
-Trois modes : contre l'ordinateur (1 à 4 adversaires), à plusieurs en se passant l'appareil (2 à 5 joueurs, un écran masque la main entre les tours), et à deux face à face sur un iPad posé à plat.
+Deux modes : contre l'ordinateur (1 à 4 adversaires, hors ligne), et **en ligne** : 2 joueurs au plus, chacun sur son appareil, les ordinateurs complètent la table (jusqu'à 5 joueurs en tout). En ligne, un **plateau** (iPad en affichage commun, personne ne joue dessus) peut montrer le pli en cours, les paris, les plis pris, les scores et le tour : les téléphones cachent alors la table et gardent la main et les boutons.
 
 ## Règles
 
@@ -13,7 +13,7 @@ Trois modes : contre l'ordinateur (1 à 4 adversaires), à plusieurs en se passa
 
 ## Fichiers
 
-`engine.js` (règles, marque, IA), `app.js` (interface), `index.html`, `sw.js` et `manifest.webmanifest` (PWA hors ligne), `icons/`.
+`engine.js` (règles, marque, IA), `en-ligne.js` (brique En ligne, Supabase), `app.js` (interface), `index.html`, `sw.js` et `manifest.webmanifest` (PWA hors ligne), `icons/`, `tests/e2e/` (essais automatiques). Voir `ARCHITECTURE.md` et `CARNET_DE_BORD.md`.
 
 
 ## Licence

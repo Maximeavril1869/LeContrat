@@ -52,7 +52,7 @@
       mode: cfg.mode, n: n, names: cfg.names.slice(), human: cfg.human.slice(),
       sizes: dealSizes(n), deal: 0, dealer: Math.floor(Math.random() * n),
       scores: zeros(n), excuseCount: zeros(n), history: [],
-      over: false, veil: false
+      over: false
     };
     startDeal(G);
     return G;
