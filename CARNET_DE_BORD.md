@@ -28,3 +28,8 @@ Opérations :
 4. Pas d'« atout » dans ce jeu (les 22 cartes sont toutes des atouts) : le plateau n'en affiche pas ; il montre le nombre de cartes par joueur, les cartes écartées et le dernier pli remporté.
 5. Tests : `tests/e2e/en_ligne.py` (74 vérifications : anciens modes ignorés, connexion, code inconnu, 3e personne refusée, mains cachées, droits de jeu, hors ligne puis envoi, reprise, plateau, donne suivante pressée en même temps, partie complète de 13 donnes jusqu'au classement sur 2 appareils + plateau, « Rejouer », fermeture du plateau sans prévenir puis réouverture, suppression, 2 humains sans ordinateur, noms identiques, solo avec reprise, service worker).
 6. Corrigé pendant les essais : le bouton « Afficher la table » dans la barre du haut faisait déborder le titre → déplacé sur sa propre ligne ; la boucle des ordinateurs est relancée si l'état est remplacé pendant son attente.
+
+## 2026-11-14 — livraison v3 : marge haute iPhone + correctif de cache
+1. En-tête descendu sous la zone floutée d'iOS (iPhone, appli installée) : marge haute supplémentaire (même principe que 5 Rois v15, à valider sur l'appareil de l'auteur).
+2. Cache : fichiers versionnés `?v=3` dans index.html et sw.js, installation du service worker avec `cache: 'reload'`, requêtes avec `cache: 'no-cache'`, réseau d'abord puis cache hors ligne. Version et nom du cache incrémentés ensemble.
+3. Tests e2e OK.

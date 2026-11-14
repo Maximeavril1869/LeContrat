@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   var E = window.Engine, EL = window.EnLigne;
-  var SAVE_KEY = 'lecontrat_partie_v1', PREF_KEY = 'lecontrat_prefs_v1', OKEY = 'lecontrat_online_v1', APP_VERSION = '2';
+  var SAVE_KEY = 'lecontrat_partie_v1', PREF_KEY = 'lecontrat_prefs_v1', OKEY = 'lecontrat_online_v1', APP_VERSION = '3';
   var BOT_NAMES = ['Camille', 'Hugo', 'Léa', 'Noé'];   // jusqu'à 4 adversaires (5 joueurs)
 
   var G = null;               // état de la partie (sérialisable)
