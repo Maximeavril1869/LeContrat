@@ -33,3 +33,9 @@ Opérations :
 1. En-tête descendu sous la zone floutée d'iOS (iPhone, appli installée) : marge haute supplémentaire (même principe que 5 Rois v15, à valider sur l'appareil de l'auteur).
 2. Cache : fichiers versionnés `?v=3` dans index.html et sw.js, installation du service worker avec `cache: 'reload'`, requêtes avec `cache: 'no-cache'`, réseau d'abord puis cache hors ligne. Version et nom du cache incrémentés ensemble.
 3. Tests e2e OK.
+
+## 2026-11-14 — Version 4 : en-tête sous la zone floutée d'iOS, cache
+1. Alignement sur 5 Rois v15 (validé sur iPhone 16e) : barre d'état `apple-mobile-web-app-status-bar-style` = `default` ; marge haute 28 px sous la zone sûre, pour que le titre sorte de la zone floutée d'iOS (~75 pt).
+2. `APP_VERSION` 4, cache `lecontrat-v4`, scripts `?v=4`.
+3. Le réglage de barre d'état n'est lu qu'à l'installation : supprimer l'icône de l'écran d'accueil puis la rajouter depuis Safari.
+4. Tests : e2e en ligne (74) OK.
